@@ -8,3 +8,5 @@ function Letter(value) {
         if (attempt == this.value) this.guessed = true;
     }
 }
+
+module.exports(Letter);

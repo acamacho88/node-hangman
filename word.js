@@ -1,6 +1,6 @@
-const Letter = require('./letter.js');
+// const Letter = require('./letter.js');
 
-function Word(entry) {
+function Word() {
     this.letters = [];
     this.phrase = function () {
         let string = '';
@@ -16,4 +16,4 @@ function Word(entry) {
     }
 }
 
-module.exports(Word);
+module.exports = Word;

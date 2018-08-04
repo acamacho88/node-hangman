@@ -9,4 +9,4 @@ function Letter(value) {
     }
 }
 
-module.exports(Letter);
+module.exports = Letter;

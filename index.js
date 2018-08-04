@@ -109,5 +109,6 @@ let guessLoop = function () {
     })
 }
 
+console.log("\nWelcome to country guesser!\n");
 console.log(wordList[wordIndex].phrase() + "\n");
 guessLoop();

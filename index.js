@@ -2,17 +2,23 @@ const Word = require('./word.js');
 const Letter = require('./letter.js');
 const inquirer = require('inquirer');
 
-let belgium = new Word;
-
-const belgiumS = 'Belgium';
-
-for (var i = 0; i < belgiumS.length; i++) {
-    belgium.letters.push(new Letter(belgiumS[i]))
+const newWord = function (string) {
+    let test = new Word;
+    for (var i = 0; i < string.length; i++) {
+        test.letters.push(new Letter(string[i]));
+    }
+    return test;
 }
+
+const belgium = newWord('Belgium');
 
 console.log(belgium.phrase());
 console.log(belgium.letters);
 
-/* inquirer.prompt(["Guess a letter!"]).then(answers => {
+/* inquirer.prompt([{
+    type: "prompt",
+    message: "Guess a letter!",
+    name: "guess"
+}]).then(answers => {
     console.log(answers);
 }) */

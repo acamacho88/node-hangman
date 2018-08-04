@@ -5,7 +5,12 @@ function Letter(value) {
         return this.guessed ? this.value : "_";
     }
     this.guess = function (attempt) {
-        if (attempt == this.value) this.guessed = true;
+        if (attempt == this.value) {
+            this.guessed = true;
+            return true;
+        } else {
+            return false;
+        }
     }
 }
 

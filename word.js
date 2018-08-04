@@ -10,9 +10,11 @@ function Word() {
         return string.trim();
     }
     this.lGuess = function (char) {
+        let goodGuess = false;
         this.letters.forEach(lett => {
-            lett.guess(char);
+            goodGuess = lett.guess(char);
         })
+        console.log(goodGuess ? "CORRECT!!!" : "INCORRECT!!!");
     }
 }
 

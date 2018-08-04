@@ -5,7 +5,7 @@ function Letter(value) {
         return this.guessed ? this.value : "_";
     }
     this.guess = function (attempt) {
-        if (attempt == this.value) {
+        if (attempt == this.value.toLowerCase()) {
             this.guessed = true;
             return true;
         } else {

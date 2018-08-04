@@ -7,8 +7,9 @@ let wordIndex = 0;
 
 let guessesRemaining = 10;
 let guesses = [];
+let nWins = 0;
 
-const alpha = 'abcdefghijklmnopqrstuvwxtz';
+const alpha = 'abcdefghijklmnopqrstuvwxyz';
 
 const newWord = function (string) {
     let test = new Word;
@@ -21,13 +22,20 @@ const newWord = function (string) {
 newWord('Belgium');
 newWord('Mozambique');
 newWord('Uzbekistan');
-newWord('Mongolio');
+newWord('Mongolia');
 newWord('Austria');
 newWord('Nicaragua');
-/* 
-console.log(belgium.phrase());
-console.log(belgium.letters);
- */
+
+const nextWord = function () {
+    wordIndex++;
+    guessesRemaining = 10;
+    guesses = [];
+}
+
+const endMessage = function () {
+    console.log("\nYou got " + nWins + " out of " + wordList.length + " words correct!");
+    if (nWins == wordList.length) console.log("\n100%!! Great job!!");
+}
 
 let guessLoop = function () {
     inquirer.prompt([{
@@ -42,33 +50,64 @@ let guessLoop = function () {
             }
             if (alphaCheck) {
                 let guess = answers.guess.toLowerCase();
+                let goodGuess = false;
+
                 if (!guesses.includes(guess)) {
-                    wordList[wordIndex].lGuess(guess);
+
+                    guesses.push(guess);
+                    goodGuess = wordList[wordIndex].lGuess(guess);
+
+                    if (!goodGuess) {
+                        console.log("\nINCORRECT!!!");
+                        if (guessesRemaining > 1) {
+                            guessesRemaining--;
+                            console.log("\n" + guessesRemaining + " guesses remaining!!!");
+                        } else {
+                            if (wordIndex < wordList.length - 1) {
+                                console.log("\nRan out of guesses! Next word");
+                                nextWord();
+                            } else {
+                                console.log("\nNo more words!");
+                                endMessage();
+                                return;
+                            }
+                        }
+                    } else {
+                        console.log("\nCORRECT!!!");
+                    }
                 } else {
-                    console.log("Letter already guessed!");
+                    console.log("\nLetter already guessed!");
                 }
                 let currStatus = wordList[wordIndex].phrase();
-                console.log(currStatus);
+                console.log("\n" + currStatus + "\n");
                 let foundUnderscore = false;
                 for (var i = 0; i < currStatus.length; i++) {
                     if (currStatus[i] == '_') foundUnderscore = true;
                 }
                 if (!foundUnderscore) {
+                    nWins++;
                     if (wordIndex < wordList.length - 1) {
-                        console.log("You got it right! Next word!");
-                        wordIndex++;
+                        console.log("\nYou got it right! Next word!\n");
+                        nextWord();
+                        console.log(wordList[wordIndex].phrase() + "\n");
                         guessLoop();
                     } else {
-                        console.log("You guessed the last word! Congrats!");
+                        console.log("\nYou guessed the last word! Congrats!");
+                        endMessage();
                     }
                 } else {
                     guessLoop();
                 }
+            } else {
+                console.log("\nInvalid character!\n");
+                guessLoop();
             }
         } else {
-            console.log("Invalid entry");
+            console.log("\nInvalid entry\n");
+            guessLoop();
         }
     })
 }
 
+console.log(wordList[wordIndex].phrase() + "\n");
 guessLoop();

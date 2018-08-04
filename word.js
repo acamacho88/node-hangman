@@ -12,9 +12,9 @@ function Word() {
     this.lGuess = function (char) {
         let goodGuess = false;
         this.letters.forEach(lett => {
-            goodGuess = lett.guess(char);
+            if (lett.guess(char)) goodGuess = true;
         })
-        console.log(goodGuess ? "CORRECT!!!" : "INCORRECT!!!");
+        return goodGuess;
     }
 }
 
